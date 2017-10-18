@@ -13,6 +13,20 @@
         <property name="Label" translatable="yes" />
         <property name="StockId">gtk-new</property>
       </action>
+      <action id="refreshAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-refresh</property>
+      </action>
+      <action id="deleteAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-delete</property>
+      </action>
+      <action id="Action">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
@@ -28,6 +42,9 @@
             <property name="ShowArrow">False</property>
             <node name="toolbar" type="Toolbar">
               <node type="Toolitem" action="newAction" />
+              <node type="Toolitem" action="refreshAction" />
+              <node type="Toolitem" action="deleteAction" />
+              <node type="Toolitem" action="Action" />
             </node>
           </widget>
           <packing>
@@ -79,7 +96,7 @@
           <widget class="Gtk.Toolbar" id="toolbar1">
             <property name="MemberName" />
             <property name="ShowArrow">False</property>
-            <node name="__gtksharp_67_Stetic_Editor_ActionToolbar" type="Toolbar">
+            <node name="toolbar1" type="Toolbar">
               <node type="Toolitem" action="saveAction" />
             </node>
           </widget>

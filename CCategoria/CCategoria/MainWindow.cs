@@ -1,6 +1,7 @@
 ﻿using Gtk;
 using MySql.Data.MySqlClient;
 using System;
+using SerpisAd.Ad;
 using System.Data;
 
 using CCategoria;

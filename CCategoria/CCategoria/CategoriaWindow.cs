@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using SerpisAd.Ad;
 
 namespace CCategoria
 {

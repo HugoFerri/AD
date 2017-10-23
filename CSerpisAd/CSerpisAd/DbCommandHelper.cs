@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace CCategoria
+namespace SerpisAd.Ad
 {
 	public class DbCommandHelper
 	{

@@ -24,26 +24,34 @@ namespace CCategoria
         }
 
         public static void Save (Categoria categoria) {
-            if (categoria.Id == 0)
-            {
-				string nombre = entryNombre.Text;
-				IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-				dbCommand.CommandText = "insert into categoria (nombre) values (@nombre)";
-				DbCommandHelper.AddParameter(dbCommand, "nombre", categoria.nombre);
-				dbCommand.ExecuteNonQuery();
+            if (categoria.Id == 0){
+                Insert(categoria);
             }
             else{
-				string nombre = entryNombre.Text;
-				IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
-				dbCommand.CommandText = "UPDATE categoria SET nombre = @nombre WHERE id = @id";
-				DbCommandHelper.AddParameter(dbCommand, "nombre", categoria.nombre);
-				DbCommandHelper.AddParameter(dbCommand, "id", categoria.id);
-				dbCommand.ExecuteNonQuery();
+                Update(categoria);
             }
         }
 
+        private static void Insert(Categoria categoria){
+			IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+			dbCommand.CommandText = "INSERT INTO categoria (nombre) VALUES (@nombre)";
+			DbCommandHelper.AddParameter(dbCommand, "nombre", categoria.Nombre);
+			dbCommand.ExecuteNonQuery();
+        }
+
+        private static void Update(Categoria categoria){
+			IDbCommand dbCommand = App.Instance.Connection.CreateCommand();
+			dbCommand.CommandText = "UPDATE categoria SET nombre = @nombre WHERE id = @id";
+            DbCommandHelper.AddParameter(dbCommand, "id", categoria.Id);
+			DbCommandHelper.AddParameter(dbCommand, "nombre", categoria.Nombre);
+			dbCommand.ExecuteNonQuery();
+        }
+
         public static void Delete (object id){
-            
+			IDbCommand dbCommnand = App.Instance.Connection.CreateCommand();
+			dbCommnand.CommandText = "DELETE FROM categoria WHERE id = @id";
+			DbCommandHelper.AddParameter(dbCommnand, "id", id);
+			dbCommnand.ExecuteNonQuery();
         }
     }
 }

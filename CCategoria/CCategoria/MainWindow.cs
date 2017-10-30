@@ -36,12 +36,14 @@ public partial class MainWindow : Gtk.Window
 		};
 
 		newAction.Activated += delegate {
-			new CategoriaWindow();
+            Categoria categoria = new Categoria();
+            new CategoriaWindow(categoria);
 		};
 
         editAction.Activated += delegate {
             object id = getId();
-            new CategoriaWindow(id);
+            Categoria categoria = CategoriaDao.Load(id);
+            new CategoriaWindow(categoria);
         };
 
 		refreshAction.Activated += delegate {
@@ -51,11 +53,7 @@ public partial class MainWindow : Gtk.Window
 		deleteAction.Activated += delegate {
             if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?")){
                 object id = getId();
-                IDbCommand dbCommnand = App.Instance.Connection.CreateCommand();
-                dbCommnand.CommandText = "DELETE FROM categoria WHERE id = @id";
-                //"UPDATE categoria SET nombre = recogerpantallanombre WHERE id = @id";
-                DbCommandHelper.AddParameter(dbCommnand, "id", id);
-                dbCommnand.ExecuteNonQuery();
+                CategoriaDao.Delete(id);
             }
 		};
 	}

@@ -4,27 +4,17 @@ using SerpisAd.Ad;
 
 namespace CCategoria
 {
-    public partial class CategoriaWindow : Gtk.Window
-    {
-        public CategoriaWindow(object id) : this (){
+    public partial class CategoriaWindow : Gtk.Window{
+        public CategoriaWindow(Categoria categoria) : base(Gtk.WindowType.Toplevel){
             this.Build();
 
-            Categoria categoria = CategoriaDao.Load(id);
-            entryNombre.Text = categoria.Nombre;
-
-            saveAction.Activated += delegate {
-                CategoriaDao.Save();
-                Destroy();
-            };
-        }
-
-        public CategoriaWindow() : base(Gtk.WindowType.Toplevel){
-			this.Build();
+			entryNombre.Text = categoria.Nombre ?? "";
 
 			saveAction.Activated += delegate {
-                CategoriaDao.Save();
+				categoria.Nombre = entryNombre.Text;
+				CategoriaDao.Save(categoria);
 				Destroy();
-            };
+			};
         }
     }
 }

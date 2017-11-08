@@ -66,6 +66,10 @@
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ArticuloDao.cs" />
+    <Compile Include="Articulo.cs" />
+    <Compile Include="ArticuloWindow.cs" />
+    <Compile Include="gtk-gui\CArticulo.ArticuloWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

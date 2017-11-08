@@ -8,60 +8,58 @@ using CCategoria;
 
 public partial class MainWindow : Gtk.Window
 {
-	public MainWindow() : base(Gtk.WindowType.Toplevel)
-	{
-		Build();
-		Title = "Categoria";
-		deleteAction.Sensitive = false;
-		editAction.Sensitive = false;
+    public MainWindow() : base(Gtk.WindowType.Toplevel)
+    {
+        Build();
+        Title = "Categoria";
+        deleteAction.Sensitive = false;
+        editAction.Sensitive = false;
 
-		App.Instance.Connection = new MySqlConnection("server=localhost;database=dbprueba;user=root;password=sistemas");
-		App.Instance.Connection.Open();
+        App.Instance.Connection = new MySqlConnection("server=localhost;database=dbprueba;user=root;password=sistemas");
+        App.Instance.Connection.Open();
 
-		TreeViewHelper.Fill(treeView, CategoriaDao.SelectAll);
+        TreeViewHelper.Fill(treeView, CategoriaDao.SelectAll);
 
-		treeView.Selection.Changed += delegate {
-			bool hasSelected = treeView.Selection.CountSelectedRows() > 0;
-			deleteAction.Sensitive = hasSelected;
-			editAction.Sensitive = hasSelected;
-			//if (treeView.Selection.CountSelectedRows() > 0)
-			//    deleteAction.Sensitive = true;
-			//else
-			//deleteAction.Sensitive = false;
-		};
+        treeView.Selection.Changed += delegate
+        {
+            bool hasSelected = treeView.Selection.CountSelectedRows() > 0;
+            deleteAction.Sensitive = hasSelected;
+            editAction.Sensitive = hasSelected;
+            //if (treeView.Selection.CountSelectedRows() > 0)
+            //    deleteAction.Sensitive = true;
+            //else
+            //deleteAction.Sensitive = false;
+        };
 
-		newAction.Activated += delegate {
-			Categoria categoria = new Categoria();
-			new CategoriaWindow(categoria);
-		};
+        newAction.Activated += delegate
+        {
+            Categoria categoria = new Categoria();
+            new CategoriaWindow(categoria);
+        };
 
-		editAction.Activated += delegate {
-			object id = getId();
-			Categoria categoria = CategoriaDao.Load(id);
-			new CategoriaWindow(categoria);
-		};
+        editAction.Activated += delegate
+        {
+            object id = TreeViewHelper.getId(treeView);
+            Categoria categoria = CategoriaDao.Load(id);
+            new CategoriaWindow(categoria);
+        };
 
-		refreshAction.Activated += delegate {
-			TreeViewHelper.Fill(treeView, CategoriaDao.SelectAll);
-		};
+        refreshAction.Activated += delegate
+        {
+            TreeViewHelper.Fill(treeView, CategoriaDao.SelectAll);
+        };
 
-		deleteAction.Activated += delegate {
-			if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?"))
-			{
-				object id = getId();
-				CategoriaDao.Delete(id);
-			}
+        deleteAction.Activated += delegate
+        {
+            if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?"))
+            {
+                object id = TreeViewHelper.getId(treeView);
+                CategoriaDao.Delete(id);
+            }
 
 
-		};
-	}
-
-	private object getId()
-	{
-		TreeIter treeIter;
-		treeView.Selection.GetSelected(out treeIter);
-		return treeView.Model.GetValue(treeIter, 0);
-	}
+        };
+    }
 
 	private void fillListStore(ListStore listStore)
 	{

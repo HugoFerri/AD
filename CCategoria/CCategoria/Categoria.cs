@@ -7,7 +7,7 @@ namespace CCategoria
         }
 
         private long id;
-        private String nombre;
+        private String nombre = "";
 
         public long Id {
             get { return id; }

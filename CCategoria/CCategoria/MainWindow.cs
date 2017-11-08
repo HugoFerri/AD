@@ -1,9 +1,9 @@
 ﻿using Gtk;
 using MySql.Data.MySqlClient;
 using System;
-using SerpisAd.Ad;
 using System.Data;
 
+using SerpisAd.Ad;
 using CCategoria;
 
 public partial class MainWindow : Gtk.Window
@@ -11,24 +11,19 @@ public partial class MainWindow : Gtk.Window
 	public MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
 		Build();
-
+		Title = "Categoria";
 		deleteAction.Sensitive = false;
-        editAction.Sensitive = false;
+		editAction.Sensitive = false;
 
 		App.Instance.Connection = new MySqlConnection("server=localhost;database=dbprueba;user=root;password=sistemas");
 		App.Instance.Connection.Open();
 
-		treeView.AppendColumn("id", new CellRendererText(), "text", 0);
-		treeView.AppendColumn("nombre", new CellRendererText(), "text", 1);
-		ListStore listStore = new ListStore(typeof(string), typeof(string));
-		treeView.Model = listStore;
-
-		fillListStore(listStore);
+		TreeViewHelper.Fill(treeView, CategoriaDao.SelectAll);
 
 		treeView.Selection.Changed += delegate {
-            bool hasSelected = treeView.Selection.CountSelectedRows() > 0;
-            deleteAction.Sensitive = hasSelected;
-            editAction.Sensitive = hasSelected;
+			bool hasSelected = treeView.Selection.CountSelectedRows() > 0;
+			deleteAction.Sensitive = hasSelected;
+			editAction.Sensitive = hasSelected;
 			//if (treeView.Selection.CountSelectedRows() > 0)
 			//    deleteAction.Sensitive = true;
 			//else
@@ -36,37 +31,40 @@ public partial class MainWindow : Gtk.Window
 		};
 
 		newAction.Activated += delegate {
-            Categoria categoria = new Categoria();
-            new CategoriaWindow(categoria);
+			Categoria categoria = new Categoria();
+			new CategoriaWindow(categoria);
 		};
 
-        editAction.Activated += delegate {
-            object id = getId();
-            Categoria categoria = CategoriaDao.Load(id);
-            new CategoriaWindow(categoria);
-        };
+		editAction.Activated += delegate {
+			object id = getId();
+			Categoria categoria = CategoriaDao.Load(id);
+			new CategoriaWindow(categoria);
+		};
 
 		refreshAction.Activated += delegate {
-			fillListStore(listStore);
+			TreeViewHelper.Fill(treeView, CategoriaDao.SelectAll);
 		};
 
 		deleteAction.Activated += delegate {
-            if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?")){
-                object id = getId();
-                CategoriaDao.Delete(id);
-            }
+			if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?"))
+			{
+				object id = getId();
+				CategoriaDao.Delete(id);
+			}
+
+
 		};
 	}
 
-
-    private object getId(){
+	private object getId()
+	{
 		TreeIter treeIter;
 		treeView.Selection.GetSelected(out treeIter);
-        return treeView.Model.GetValue(treeIter, 0);
-    }
+		return treeView.Model.GetValue(treeIter, 0);
+	}
 
-
-	private void fillListStore(ListStore listStore){
+	private void fillListStore(ListStore listStore)
+	{
 		listStore.Clear();
 		IDbCommand dbCommnand = App.Instance.Connection.CreateCommand();
 		dbCommnand.CommandText = "select * from categoria order by id";
@@ -76,7 +74,8 @@ public partial class MainWindow : Gtk.Window
 		dataReader.Close();
 	}
 
-	protected void OnDeleteEvent(object sender, DeleteEventArgs a){
+	protected void OnDeleteEvent(object sender, DeleteEventArgs a)
+	{
 		App.Instance.Connection.Close();
 
 		Application.Quit();

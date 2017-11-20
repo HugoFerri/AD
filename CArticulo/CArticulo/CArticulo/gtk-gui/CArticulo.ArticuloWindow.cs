@@ -14,17 +14,17 @@ namespace CArticulo
 
 		private global::Gtk.Table table1;
 
-		private global::Gtk.Entry entryCategoria;
+		private global::Gtk.ComboBox comboBoxCategoria;
 
 		private global::Gtk.Entry entryNombre;
-
-		private global::Gtk.Entry entryPrecio;
 
 		private global::Gtk.Label label1;
 
 		private global::Gtk.Label label2;
 
 		private global::Gtk.Label label3;
+
+		private global::Gtk.SpinButton spinButtonPrecio;
 
 		protected virtual void Build()
 		{
@@ -60,17 +60,15 @@ namespace CArticulo
 			this.table1.RowSpacing = ((uint)(6));
 			this.table1.ColumnSpacing = ((uint)(6));
 			// Container child table1.Gtk.Table+TableChild
-			this.entryCategoria = new global::Gtk.Entry();
-			this.entryCategoria.CanFocus = true;
-			this.entryCategoria.Name = "entryCategoria";
-			this.entryCategoria.IsEditable = true;
-			this.entryCategoria.InvisibleChar = '•';
-			this.table1.Add(this.entryCategoria);
-			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1[this.entryCategoria]));
+			this.comboBoxCategoria = global::Gtk.ComboBox.NewText();
+			this.comboBoxCategoria.Name = "comboBoxCategoria";
+			this.table1.Add(this.comboBoxCategoria);
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1[this.comboBoxCategoria]));
 			w3.TopAttach = ((uint)(2));
 			w3.BottomAttach = ((uint)(3));
 			w3.LeftAttach = ((uint)(1));
 			w3.RightAttach = ((uint)(2));
+			w3.XOptions = ((global::Gtk.AttachOptions)(4));
 			w3.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.entryNombre = new global::Gtk.Entry();
@@ -82,46 +80,50 @@ namespace CArticulo
 			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1[this.entryNombre]));
 			w4.LeftAttach = ((uint)(1));
 			w4.RightAttach = ((uint)(2));
+			w4.XOptions = ((global::Gtk.AttachOptions)(4));
 			w4.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
-			this.entryPrecio = new global::Gtk.Entry();
-			this.entryPrecio.CanFocus = true;
-			this.entryPrecio.Name = "entryPrecio";
-			this.entryPrecio.IsEditable = true;
-			this.entryPrecio.InvisibleChar = '•';
-			this.table1.Add(this.entryPrecio);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.entryPrecio]));
-			w5.TopAttach = ((uint)(1));
-			w5.BottomAttach = ((uint)(2));
-			w5.LeftAttach = ((uint)(1));
-			w5.RightAttach = ((uint)(2));
-			w5.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.label1 = new global::Gtk.Label();
 			this.label1.Name = "label1";
 			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString("Nombre");
 			this.table1.Add(this.label1);
-			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1[this.label1]));
-			w6.XOptions = ((global::Gtk.AttachOptions)(4));
-			w6.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.label1]));
+			w5.XOptions = ((global::Gtk.AttachOptions)(4));
+			w5.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.label2 = new global::Gtk.Label();
 			this.label2.Name = "label2";
 			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Precio");
 			this.table1.Add(this.label2);
-			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1[this.label2]));
-			w7.TopAttach = ((uint)(1));
-			w7.BottomAttach = ((uint)(2));
-			w7.XOptions = ((global::Gtk.AttachOptions)(4));
-			w7.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1[this.label2]));
+			w6.TopAttach = ((uint)(1));
+			w6.BottomAttach = ((uint)(2));
+			w6.XOptions = ((global::Gtk.AttachOptions)(4));
+			w6.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.label3 = new global::Gtk.Label();
 			this.label3.Name = "label3";
 			this.label3.LabelProp = global::Mono.Unix.Catalog.GetString("Categoria");
 			this.table1.Add(this.label3);
-			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1[this.label3]));
-			w8.TopAttach = ((uint)(2));
-			w8.BottomAttach = ((uint)(3));
+			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1[this.label3]));
+			w7.TopAttach = ((uint)(2));
+			w7.BottomAttach = ((uint)(3));
+			w7.XOptions = ((global::Gtk.AttachOptions)(4));
+			w7.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.spinButtonPrecio = new global::Gtk.SpinButton(0D, 100D, 1D);
+			this.spinButtonPrecio.CanFocus = true;
+			this.spinButtonPrecio.Name = "spinButtonPrecio";
+			this.spinButtonPrecio.Adjustment.PageIncrement = 10D;
+			this.spinButtonPrecio.ClimbRate = 1D;
+			this.spinButtonPrecio.Digits = ((uint)(2));
+			this.spinButtonPrecio.Numeric = true;
+			this.table1.Add(this.spinButtonPrecio);
+			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1[this.spinButtonPrecio]));
+			w8.TopAttach = ((uint)(1));
+			w8.BottomAttach = ((uint)(2));
+			w8.LeftAttach = ((uint)(1));
+			w8.RightAttach = ((uint)(2));
 			w8.XOptions = ((global::Gtk.AttachOptions)(4));
 			w8.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.vbox3.Add(this.table1);

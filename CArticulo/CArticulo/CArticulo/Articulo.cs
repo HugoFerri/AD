@@ -1,31 +1,34 @@
 ﻿using System;
 namespace CArticulo
 {
-    public class Articulo
-    {
-		private long id;
-		private String nombre = "";
-        private decimal precio;
-        private long categoria;
+	public class Articulo
+	{
 
-		public long Id{
+		private long id;
+		private string nombre = "";
+		private decimal precio;
+		private long categoria;
+
+		public long Id
+		{
 			get { return id; }
 			set { id = value; }
 		}
 
-		public String Nombre{
+		public string Nombre
+		{
 			get { return nombre; }
 			set { nombre = value; }
 		}
-
-		public long Categoria{
-			get { return categoria; }
-			set { categoria = value; }
-		}
-
-        public decimal Precio{
+		public decimal Precio
+		{
 			get { return precio; }
 			set { precio = value; }
 		}
-    }
+		public long Categoria
+		{
+			get { return categoria; }
+			set { categoria = value; }
+		}
+	}
 }

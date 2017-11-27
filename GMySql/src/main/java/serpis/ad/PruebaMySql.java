@@ -17,8 +17,6 @@ public class PruebaMySql {
 		Connection connection = DriverManager.getConnection(DB_URL,USER,PASS);
 		Statement stmt = connection.createStatement();
 
-	    Class.forName("com.mysql.cj.jdbc.Driver");
-
 	    sql = "SELECT * FROM categoria";
 	    ResultSet rs = stmt.executeQuery(sql);
 	    

@@ -7,13 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Pedido {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	private long cliente;
+	@ManyToOne
+	@JoinColumn (name = "Cliente")
+	private Cliente cliente;
 	private Date fecha;
 	private BigDecimal importe;
 	
@@ -21,11 +26,11 @@ public class Pedido {
 		this.id = id;
 	}
 	
-	public long getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 	
-	public void setCliente(long cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 	

@@ -6,15 +6,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class PedidoLinea {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	private long pedido;
+	@ManyToOne
+	@JoinColumn (name = "Pedido")
+	private Pedido pedido;
+	//Muchos pedidos linea componen un pedido
 	private BigDecimal precio;
-	private long articulo;
+	@ManyToOne
+	@JoinColumn (name = "Articulo")
+	private Articulo articulo;
 	private BigDecimal unidades;
 	private BigDecimal importe;
 	
@@ -26,11 +35,11 @@ public class PedidoLinea {
 		return id;
 	}
 	
-	public long getPedido() {
+	public Pedido getPedido() {
 		return pedido;
 	}
 	
-	public void setPedido(long pedido) {
+	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
 	
@@ -42,11 +51,11 @@ public class PedidoLinea {
 		this.precio = precio;
 	}
 	
-	public long getCategoria() {
+	public Articulo getArticulo() {
 		return articulo;
 	}
 	
-	public void setCategoria(long articulo) {
+	public void setArticulo(Articulo articulo) {
 		this.articulo = articulo;
 	}
 	

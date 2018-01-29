@@ -42,22 +42,22 @@ public class PruebaVenta {
                 		salir = true;
                 		break;     
                 	case 1:
-                        showAll();
+                		showAll(Articulo.class);
                         break;
                     case 2:
-                    	showArticulo();
+                    	showAll(Articulo.class);
                         break;
                     case 3:
-                    	showCategoria();
+                    	showAll(Categoria.class);
                         break;
                     case 4:
-                        showCliente();
+                    	showAll(Cliente.class);
                         break;
                     case 5:
-                    	showPedido();
+                    	showAll(Pedido.class);
                         break;
                     case 6:
-                    	showPedidoLinea();
+                    	showAll(PedidoLinea.class);
                         break;
                     case 7:
                     	newArticulo();
@@ -73,62 +73,19 @@ public class PruebaVenta {
 		entityManagerFactory.close();
 	}
 	
-	//TODO show generico
-	private static void showAll() {
+	private static <TEntity> void showAll(Class<TEntity> entityType) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-		List<Categoria> items = entityManager.createQuery("from Categoria order by id", Categoria.class).getResultList();
-		for (Categoria item : items)
-			System.out.println(item);
+		String queryString = String.format("from %s order by id", entityType.getSimpleName());
+		List<TEntity>  entities = entityManager
+				.createQuery(queryString, entityType)
+				.getResultList();
+		for (TEntity entity : entities)
+			System.out.println(entity);
 		entityManager.getTransaction().commit();
 	}
 	
-	private static void showArticulo() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		List<Articulo> articulos = entityManager.createQuery("from Articulo order by id", Articulo.class).getResultList();
-		for (Articulo articulo : articulos)
-			System.out.println(articulo);
-		entityManager.getTransaction().commit();
-	}
-	
-	private static void showCategoria() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		List<Categoria> categorias = entityManager.createQuery("from Categoria order by id", Categoria.class).getResultList();
-		for (Categoria categoria : categorias)
-			System.out.println(categoria);
-		entityManager.getTransaction().commit();
-	}
-	
-	private static void showCliente() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		List<Cliente> clientes = entityManager.createQuery("from Cliente order by id", Cliente.class).getResultList();
-		for (Cliente cliente : clientes)
-			System.out.println(cliente);
-		entityManager.getTransaction().commit();
-	}
-	
-	private static void showPedido() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		List<Pedido> pedidos = entityManager.createQuery("from Pedido order by id", Pedido.class).getResultList();
-		for (Pedido pedido : pedidos)
-			System.out.println(pedido);
-		entityManager.getTransaction().commit();
-	}
 
-	private static void showPedidoLinea() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		List<PedidoLinea> pedidoLineas = entityManager.createQuery("from Pedidolinea order by id", PedidoLinea.class).getResultList();
-		for (PedidoLinea pedidoLinea : pedidoLineas)
-			System.out.println(pedidoLinea);
-		entityManager.getTransaction().commit();
-	}
-
-	
 	private static void newArticulo() {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();

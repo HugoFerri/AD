@@ -71,10 +71,6 @@ public class PedidoLinea {
 		return importe;
 	}
 	
-	public void setImporte(BigDecimal importe) {
-		this.importe = importe;
-	}
-	
 	@Override
 	public String toString() {
 		return String.format("[%s] %s %s %s€ %s %s€", id, pedido, articulo, precio, unidades,  importe);
